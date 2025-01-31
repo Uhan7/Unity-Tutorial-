@@ -15,6 +15,7 @@ public class platformer_move : MonoBehaviour
 
     public bool movingRight;
     public bool movingLeft;
+    private bool grounded;
     public bool isJumping;
 
     public KeyCode moveLeftKey;
@@ -58,7 +59,7 @@ public class platformer_move : MonoBehaviour
     {
         if (movingRight) rb.AddForceX(speed);
         if (movingLeft) rb.AddForceX(-speed);
-        if (isJumping)
+        if (isJumping && grounded)
         {
             isJumping = false;
             aSource.PlayOneShot(jumpSFX);
@@ -71,12 +72,14 @@ public class platformer_move : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D col)
     {
-        anim.SetBool("grounded", true);
+        grounded = true;
+        anim.SetBool("grounded", grounded);
     }
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        anim.SetBool("grounded", false);
+        grounded = false;
+        anim.SetBool("grounded", grounded);
     }
 
     void SetAnims()
