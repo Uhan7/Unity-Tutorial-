@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private AudioSource aSource;
+
+    public AudioClip hitSFX;
+
+    private void Awake()
     {
-        
+        aSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        
+        aSource.PlayOneShot(hitSFX);
     }
 }
